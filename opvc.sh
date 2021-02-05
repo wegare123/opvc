@@ -38,14 +38,16 @@ echo "tambahkan /root/akun/pass-opvc.txt di auth-user-pass"
 echo "contoh : auth-user-pass /root/akun/pass-opvc.txt" 
 echo "untuk bug silahkan edit config json di bagian ServerName"
 echo 'contoh : "ServerName":"isi bug disini",'
-echo "lalu masukkan 2 config kedalam direktori openwrt"
+echo "lalu masukkan 2 config kedalam direktori root openwrt"
 echo ""
-echo "Masukkan direktori config ovpn : " 
-read -p "default direktori config ovpn: $openvpn2 : " openvpn
+echo "Masukkan nama config ovpn" 
+echo "contoh wegare.ovpn" 
+read -p "default nama config ovpn: $openvpn2 : " openvpn
 [ -z "${openvpn}" ] && openvpn="$openvpn2"
 
-echo "Masukkan direktori config json : " 
-read -p "default direktori config json: $json2 : " json
+echo "Masukkan nama config json" 
+echo "contoh wegare.json" 
+read -p "default nama config json: $json2 : " json
 [ -z "${json}" ] && json="$json2"
 
 echo "host=$host
@@ -61,8 +63,10 @@ clear
 elif [ "${tools}" = "2" ]; then
 host="$(cat /root/akun/opvc.txt | grep -i host | cut -d= -f2 | head -n1)" 
 port="$(cat /root/akun/opvc.txt | grep -i port | cut -d= -f2 | head -n1)" 
-json="$(cat /root/akun/opvc.txt | grep -i direkjson | cut -d= -f2 | head -n1)" 
-opvpn="$(cat /root/akun/opvc.txt | grep -i direkopvpn | cut -d= -f2 | head -n1)" 
+json3="$(cat /root/akun/opvc.txt | grep -i direkjson | cut -d= -f2 | head -n1)" 
+opvpn3="$(cat /root/akun/opvc.txt | grep -i direkopvpn | cut -d= -f2 | head -n1)" 
+json=$(find /root -name $json3)
+opvpn=$(find /root -name $opvpn3)
 ck-client -u -c $json -s $host -p $port &
 sleep 3
 openvpn $opvpn &
