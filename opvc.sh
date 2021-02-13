@@ -72,7 +72,7 @@ sleep 3
 openvpn $opvpn &
 fping -l google.com > /dev/null 2>&1 &
 elif [ "${tools}" = "3" ]; then
-killall -q openvpn ck-client dnsmasq 
+killall -q openvpn ck-client dnsmasq fping
 /etc/init.d/dnsmasq start > /dev/null
 echo "Stop Suksess"
 sleep 2
