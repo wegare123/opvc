@@ -70,6 +70,7 @@ opvpn=$(find /root -name $opvpn3)
 ck-client -u -c $json -s $host -p $port &
 sleep 3
 openvpn $opvpn &
+fping -l google.com > /dev/null 2>&1 &
 elif [ "${tools}" = "3" ]; then
 killall -q openvpn ck-client dnsmasq 
 /etc/init.d/dnsmasq start > /dev/null
