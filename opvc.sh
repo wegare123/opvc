@@ -1,5 +1,9 @@
 #!/bin/bash
 #opvc (Wegare)
+stop () {
+killall -q openvpn ck-client fping
+/etc/init.d/dnsmasq restart 2>/dev/null
+}
 user2="$(cat /root/akun/pass-opvc.txt | awk 'NR==1')" 
 host2="$(cat /root/akun/opvc.txt | grep -i host | cut -d= -f2 | head -n1)"
 port2="$(cat /root/akun/opvc.txt | grep -i port | cut -d= -f2 | head -n1)" 
@@ -61,6 +65,7 @@ sleep 2
 clear
 /usr/bin/opvc
 elif [ "${tools}" = "2" ]; then
+stop
 host="$(cat /root/akun/opvc.txt | grep -i host | cut -d= -f2 | head -n1)" 
 port="$(cat /root/akun/opvc.txt | grep -i port | cut -d= -f2 | head -n1)" 
 json3="$(cat /root/akun/opvc.txt | grep -i direkjson | cut -d= -f2 | head -n1)" 
@@ -72,8 +77,7 @@ sleep 3
 openvpn $opvpn &
 fping -l google.com > /dev/null 2>&1 &
 elif [ "${tools}" = "3" ]; then
-killall -q openvpn ck-client dnsmasq fping
-/etc/init.d/dnsmasq start > /dev/null
+stop
 echo "Stop Suksess"
 sleep 2
 clear
