@@ -65,6 +65,11 @@ sleep 2
 clear
 /usr/bin/opvc
 elif [ "${tools}" = "2" ]; then
+cek="$(cat /root/akun/opvc.txt)"
+if [[ -z $cek ]]; then
+echo "anda belum membuat profile"
+exit
+fi
 stop
 host="$(cat /root/akun/opvc.txt | grep -i host | cut -d= -f2 | head -n1)" 
 port="$(cat /root/akun/opvc.txt | grep -i port | cut -d= -f2 | head -n1)" 
